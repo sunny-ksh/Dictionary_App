@@ -25,9 +25,19 @@
   <h1 align="center"><b>{{ current_word }}</b></h1>
   <hr>
   
-  <p>{{ meaning }}</p>
-  <p>{{ part_of_speech }}</p>
-  <p>{{ synonyms }}</p>
-  <p>{{ antonyms }}</p>
+  <ul>
+    {% set len = result["meanings"]|length %}
+    {% for i in range(len) %}
+      {% set num_def = result["meanings"][i]["definitions"]|length %} 
+      {% for j in range(num_def) %}
+	{% if j == 0 %}
+	  <ul> Part of Speech: {{ result["meanings"][i]["partOfSpeech"] }}</ul>
+	{% endif %}
+	<ul> {{j+1}}. {{ result["meanings"][i]["definitions"][j]["definition"] }}</ul>
+	<br>
+      {% endfor %}
+      <br>
+    {% endfor %}
+  </ul>
   
 {% endblock %}

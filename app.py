@@ -1,11 +1,12 @@
+# API target:
+# https://api.dictionaryapi.dev/api/v2/entries/en/hello
 from flask import Flask, render_template, request, url_for, redirect
 from flask_bootstrap import Bootstrap
 import requests
-import json
+import json, os
 
-# API target:
-# https://api.dictionaryapi.dev/api/v2/entries/en/hello
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 bootstrap = Bootstrap(app)
 
 @app.route("/", methods=["POST", "GET"])
@@ -21,16 +22,10 @@ def find():
     word = request.args.get("word")
     url="https://api.dictionaryapi.dev/api/v2/entries/en/" + word
     response = requests.get(url)
-    result = json.loads(response.text)
+    result = json.loads(response.text)[0]
 
-    for i in range(0,2):
-    meaning = result[i]["meanings"][i]["definitions"][i]['definition']
-    part_of_speech = result[i]["meanings"][i]['partOfSpeech']
-    synonym = result[i]["meanings"][i]["definitions"][i]['synonyms']
-    antonym = result[i]["meanings"][i]["definitions"][i]['antonyms']
-
-    return render_template("find.html", meaning=meaning,
-                           part_of_speech = part_of_speech,
-                           antonym=antonym,
-                           synonym=synonym,
+    return render_template("find.html", result = result,
                            current_word=word)
+
+# if __name__ == '__main__':
+#     app.run()
