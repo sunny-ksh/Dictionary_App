@@ -24,20 +24,22 @@
   <hr>
   <h1 align="center"><b>{{ current_word }}</b></h1>
   <hr>
-  
-  <ul>
-    {% set len = result["meanings"]|length %}
-    {% for i in range(len) %}
-      {% set num_def = result["meanings"][i]["definitions"]|length %} 
-      {% for j in range(num_def) %}
-	{% if j == 0 %}
-	  <ul> Part of Speech: {{ result["meanings"][i]["partOfSpeech"] }}</ul>
-	{% endif %}
-	<ul> {{j+1}}. {{ result["meanings"][i]["definitions"][j]["definition"] }}</ul>
-	<br>
+
+  <div class="container">
+    <ul>
+      {% set len = result["meanings"]|length %}
+      {% for i in range(len) %}
+        {% set num_def = result["meanings"][i]["definitions"]|length %} 
+        {% for j in range(num_def) %}
+  	{% if j == 0 %}
+	  <ul><h4> Part of Speech: {{ result["meanings"][i]["partOfSpeech"] }}</ul></h4>
+  	{% endif %}
+  	<ul> {{j+1}}. {{ result["meanings"][i]["definitions"][j]["definition"] }}</ul>
+  	<br>
+        {% endfor %}
+        <br>
       {% endfor %}
-      <br>
-    {% endfor %}
-  </ul>
+    </ul>
+  </div>
   
 {% endblock %}
