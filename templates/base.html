@@ -16,6 +16,16 @@
   </head>
 
   <body>
+      <div class="container">
+        <form method="post">
+	  <div class="form-group">
+            <input type="search" class="form-control" id="autoSizingInput" name="word" placeholder="Enter a search word">
+          </div>
+          <div align="center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+
     {% block scripts %} {% endblock %}
     <div id="content">
       {% block content %} {% endblock %}

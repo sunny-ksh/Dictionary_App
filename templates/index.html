@@ -1,14 +1,2 @@
 {% extends "base.html" %}
 
-{% block content %} 
-  <div class="container">
-    <p><form type="search" action={{ url_for("index") }} method="post">
-    <div class="form-group">
-      <input type="search" name="word" placeholder="Enter a word">
-    </div>
-    <div align="center">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-    </form></p>
-  </div>
-{% endblock %}
