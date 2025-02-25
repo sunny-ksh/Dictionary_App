@@ -1,23 +1,8 @@
 {% extends "base.html" %}
 
-{% block head %}
-  {{ super() }}
-  {% block styles %}
-    {{ super() }}
-  {% endblock %}
-  {% block title %}
-    Dictionary App
-  {% endblock %}
-  <nav class="navbar navbar-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/"><b>English Dictionary</b></a>
-    </div>
-  </nav>
-{% endblock %}
-
 {% block content %} 
   <div class="container">
-    <p><form>
+    <p><form method="post">
     <div class="form-group">
       <input type="text" class="form-control" id="autoSizingInput" name="word" placeholder="Enter a word">
     </div>
