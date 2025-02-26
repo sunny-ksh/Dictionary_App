@@ -1,0 +1,28 @@
+.navbar {
+  background-color: lightblue;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.container {
+  color: black;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+#content {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.date {
+  horizontal-align: middle;
+}

@@ -1,12 +1,7 @@
 {% extends "base.html" %}
 
-<p>Local date and time is {{ moment(current_time).format('LLL') }}.</p>
-<p>That was {{ moment(current_time).fromNow(refresh=True) }}</p>
 {% block content %} 
-  <hr>
   <h1 align="center"><b>{{ current_word }}</b></h1>
-  <hr>
-
     <ul>
       {% set len = result["meanings"]|length %}
       {% for i in range(len) %}
@@ -21,6 +16,4 @@
         <br>
       {% endfor %}
     </ul>
-  </div>
-  
 {% endblock %}
