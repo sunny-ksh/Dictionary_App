@@ -5,12 +5,16 @@ from flask_bootstrap import Bootstrap5
 import requests
 import json, os
 from dotenv import load_dotenv
+from flask_moment import Moment
+from datetime import datetime
+
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 bootstrap = Bootstrap5(app)
+moment = Moment(app)
 
 @app.route("/", methods=["POST", "GET"])
 def index():
@@ -18,7 +22,8 @@ def index():
         if len(request.form["word"]) > 0:
             word = request.form["word"]
             return redirect(url_for("find", word=word), 301)
-    return render_template("index.html")
+    return render_template("index.html",
+                           current_time=datetime.utcnow())
 
 @app.route("/find/", methods=["POST", "GET"])
 def find():
@@ -28,7 +33,8 @@ def find():
     result = json.loads(response.text)[0]
 
     return render_template("find.html", result = result,
-                           current_word=word)
+                           current_word=word,
+                           current_time=datetime.utcnow())
 
 @app.errorhandler(404)
 def page_not_found(e):

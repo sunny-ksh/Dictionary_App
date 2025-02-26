@@ -6,13 +6,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       {% block styles %}
       {% endblock %}
-      <title> Dictionary App </title>
+      <title> English News App </title>
       <nav class="navbar navbar-light">
         <div class="container-fluid">
+          <a class="navbar-brand" href="/"><b>News article</b></a>
           <a class="navbar-brand" href="/"><b>English Dictionary</b></a>
         </div>
       </nav>
     {% endblock %}
+    <p>Local date and time: {{ moment(current_time).format('LLL') }}.</p>
   </head>
 
   <body>
@@ -26,7 +28,10 @@
           </div>
         </form>
 
-    {% block scripts %} {% endblock %}
+	{% block scripts %}
+	  {{ moment.include_moment() }}
+	  {{ moment.locale('ko') }}
+	{% endblock %}
     <div id="content">
       {% block content %} {% endblock %}
     </div>
