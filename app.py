@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 from flask_moment import Moment
 from datetime import datetime
 
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -30,6 +29,10 @@ def dictionary():
     word = request.args.get("word")
     url="https://api.dictionaryapi.dev/api/v2/entries/en/" + word
     response = requests.get(url)
+    if ((response.status_code) == 404):
+        return render_template("search_fail.html",
+                               current_word=word,
+                               current_time=datetime.utcnow())
     result = json.loads(response.text)[0]
 
     return render_template("dictionary.html", result = result,
