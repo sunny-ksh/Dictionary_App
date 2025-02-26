@@ -21,23 +21,34 @@ def index():
         if len(request.form["word"]) > 0:
             word = request.form["word"]
             return redirect(url_for("dictionary", word=word), 301)
-    return render_template("index.html",
-                           current_time=datetime.utcnow())
+    return render_template("index.html")
 
 @app.route("/dictionary/", methods=["POST", "GET"])
 def dictionary():
     word = request.args.get("word")
-    url="https://api.dictionaryapi.dev/api/v2/entries/en/" + word
+    if request.method == "POST":
+        word = request.form["word"]
+    try:
+        url="https://api.dictionaryapi.dev/api/v2/entries/en/" + word
+    except TypeError:
+        return redirect(url_for("search_fail",
+                                current_word=word), 301)
     response = requests.get(url)
-    if ((response.status_code) == 404):
-        return render_template("search_fail.html",
-                               current_word=word,
-                               current_time=datetime.utcnow())
+    if ((response.status_code) != 200):
+        return redirect(url_for("search_fail",
+                                current_word=word), 301)
     result = json.loads(response.text)[0]
 
     return render_template("dictionary.html", result = result,
-                           current_word=word,
-                           current_time=datetime.utcnow())
+                           current_word=word)
+
+@app.route("/dictionary/search_fail", methods=["POST", "GET"])
+def search_fail():
+    if request.method == "POST":
+        if len(request.form["word"]) > 0:
+            word = request.form["word"]
+            return redirect(url_for("dictionary", word=word), 301)
+    return render_template("search_fail.html")
 
 @app.errorhandler(404)
 def page_not_found(e):

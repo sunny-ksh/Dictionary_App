@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     {% block head %}
+      <meta http-equiv='cache-control' content='no-cache'>
+      <meta http-equiv='expires' content='0'>
+      <meta http-equiv='pragma' content='no-cache'>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       {% block styles %}
@@ -21,6 +24,7 @@
   </head>
 
   <body>
+    {% block search %}
       <div class="container">
         <form method="post" class="search">
 	  <div class="form-group" align="center">
@@ -30,14 +34,15 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
+	<!--End of search form-->
       </div>
       <!-- End of search form container -->
+    {% endblock %}
 
     <div id="content">
       {% block content %} {% endblock %}
     </div>
     <div class="footer">
-    <p class="date">{{ moment(current_time).format('LLL') }}.</p>
     </div>
     <!-- End of footer -->
   </body>
