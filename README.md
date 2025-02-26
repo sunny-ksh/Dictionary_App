@@ -2,6 +2,4 @@
 English dictionary application with python
 
 * Demonstration
-![image](https://github.com/user-attachments/assets/b93f0068-4dfb-4c40-886f-efdeb9b8f50a)
-
-![image](https://github.com/user-attachments/assets/47860eeb-52ce-4953-88a5-ad0daf6cb1ce)
+![image](https://github.com/user-attachments/assets/6d0f408b-af87-454f-a988-74a2e0095e4c)
