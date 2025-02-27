@@ -8,17 +8,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       {% block styles %}
-	<link rel="stylesheet" href="../static/style.css">
+	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
       {% endblock %}
       <title> English News App </title>
       <nav class="navbar navbar-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/"><b>English Dictionary</b></a>
+	  <h1 id="top"><a class="navbar-brand" href="/"><b>English Dictionary</b></a></h1>
         </div>
       </nav>
     {% endblock %}
     {% block scripts %}
-      {{ moment.include_moment() }}
+     {{ moment.include_moment() }}
       {{ moment.locale('ko') }}
     {% endblock %}
   </head>
@@ -26,14 +26,13 @@
   <body>
     {% block search %}
       <div class="container">
-        <form method="post" class="search">
-	  <div class="form-group" align="center">
-            <input type="search" class="form-control" id="autoSizingInput" name="word" placeholder="검색어를 입력해주세요">
-          </div>
-          <div align="center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
+	<form method="POST">
+	  {{ form.hidden_tag() }}
+	  <!--Activate word method you defined-->
+  	  {{ form.word.label }} {{ form.word() }}
+	  <!--Activate submit method you defined-->
+  	  {{ form.submit() }}
+	</form>
 	<!--End of search form-->
       </div>
       <!-- End of search form container -->

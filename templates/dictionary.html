@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %} 
-  <h1 align="center"><b>{{ current_word }}</b></h1>
+  <!--Search status is given as a boolean value.-->
+  <!--If search is success:-->
+  {% if search_status %}
+  <h1 align="center"><b>{{ search_word }}</b></h1>
     <ul>
       {% set len = result["meanings"]|length %}
       {% for i in range(len) %}
@@ -16,4 +19,10 @@
         <br>
       {% endfor %}
     </ul>
+
+  <!--If search is fail:-->
+  {% else %}
+    <p>There is no results for <b>{{ search_word }}.</b></p>
+
+  {% endif %}
 {% endblock %}
