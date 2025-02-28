@@ -4,25 +4,24 @@
   <!--Search status is given as a boolean value.-->
   <!--If search is success:-->
   {% if search_status %}
-  <h1 align="center"><b>{{ search_word }}</b></h1>
-    <ul>
-      {% set len = result["meanings"]|length %}
-      {% for i in range(len) %}
-        {% set num_def = result["meanings"][i]["definitions"]|length %} 
-        {% for j in range(num_def) %}
-  	{% if j == 0 %}
-	  <ul><h4> Part of Speech: {{ result["meanings"][i]["partOfSpeech"] }}</ul></h4>
-  	{% endif %}
-  	<ul> {{j+1}}. {{ result["meanings"][i]["definitions"][j]["definition"] }}</ul>
-  	<br>
+    <h1 align="center"><b>{{ search_word }}</b></h1>
+      <ul>
+        {% set len = result["meanings"]|length %}
+        {% for i in range(len) %}
+          {% set num_def = result["meanings"][i]["definitions"]|length %} 
+          {% for j in range(num_def) %}
+    	{% if j == 0 %}
+  	  <ul><h4> Part of Speech: {{ result["meanings"][i]["partOfSpeech"] }}</ul></h4>
+    	{% endif %}
+    	<ul> {{j+1}}. {{ result["meanings"][i]["definitions"][j]["definition"] }}</ul>
+    	<br>
+          {% endfor %}
+          <br>
         {% endfor %}
-        <br>
-      {% endfor %}
-    </ul>
-
+      </ul>
+  
   <!--If search is fail:-->
   {% else %}
     <p>There is no results for <b>{{ search_word }}.</b></p>
-
   {% endif %}
 {% endblock %}

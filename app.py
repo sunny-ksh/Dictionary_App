@@ -1,6 +1,9 @@
 # API target:
 # https://api.dictionaryapi.dev/api/v2/entries/en/hello
-from flask import Flask, render_template, request, url_for, redirect
+from flask import (
+        Flask, render_template, request, url_for, redirect,
+        session
+        )
 from flask_bootstrap import Bootstrap5
 import requests
 import json, os
@@ -24,24 +27,26 @@ def index():
     if form.validate_on_submit():
         word = form.word.data
         form.word.data = ''
-        return redirect(url_for("dictionary", word=word), 301)
+        return redirect(url_for("dictionary", word=word))
     return render_template("index.html", form=form, search_word=word)
 
 @app.route("/dictionary/<word>", methods=["POST", "GET"])
-def dictionary(word=None):
+def dictionary(word):
     form = SearchForm()
     if form.validate_on_submit():
-        word = form.word.data
-        form.word.data = ''
-        result = fetch(word)
-        return redirect(url_for("dictionary", word=word), 301)
+        session['word'] = form.word.data
+        return redirect(url_for("dictionary", word=session['word']))
 
-    form.word.data = ''
+    # Main work
     result = fetch(word)
+    if(result != None):
+        session['search_status'] = True
+    else:
+        session['search_status'] = False
     return render_template("dictionary.html", result = result,
-                       search_word=word,
-                       form=form,
-                       search_status=True)
+                   search_word=word,
+                   form=form,
+                   search_status=session['search_status'])
 
 @app.errorhandler(404)
 def page_not_found(e):

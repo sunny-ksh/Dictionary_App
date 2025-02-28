@@ -29,7 +29,7 @@
 	<form method="POST">
 	  {{ form.hidden_tag() }}
 	  <!--Activate word method you defined-->
-  	  {{ form.word.label }} {{ form.word() }}
+  	  {{ form.word.label }} {{ form.word(autofocus="True") }}
 	  <!--Activate submit method you defined-->
   	  {{ form.submit() }}
 	</form>
