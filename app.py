@@ -34,10 +34,7 @@ def dictionary(word=None):
         word = form.word.data
         form.word.data = ''
         result = fetch(word)
-        return render_template("dictionary.html", result = result,
-                   search_word=word,
-                   form=form,
-                   search_status=True)
+        return redirect(url_for("dictionary", word=word), 301)
 
     form.word.data = ''
     result = fetch(word)
@@ -45,21 +42,6 @@ def dictionary(word=None):
                        search_word=word,
                        form=form,
                        search_status=True)
-
-# @app.route("/dictionary/<word>", methods=["POST", "GET"])
-# def search_fail(word):
-#     form = SearchForm()
-#     if form.validate_on_submit():
-#         word = form.word.data
-#         form.word.data = ''
-#         result = fetch(word)
-#         return render_template("dictionary.html", result = result,
-#                    search_word=word,
-#                    form=form)
-#     form.word.data = ''
-#     return render_template("search_fail.html",
-#                            search_word=word,
-#                            form = form)
 
 @app.errorhandler(404)
 def page_not_found(e):
