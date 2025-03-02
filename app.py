@@ -1,8 +1,6 @@
-# API target:
-# https://api.dictionaryapi.dev/api/v2/entries/en/hello
 from flask import (
         Flask, render_template, request, url_for, redirect,
-        session
+        session, flash
         )
 from flask_bootstrap import Bootstrap5
 import requests
@@ -10,13 +8,16 @@ import json, os
 from dotenv import load_dotenv
 from flask_moment import Moment
 from datetime import datetime
-from main.forms import SearchForm
-from main.fetch import fetch
+from .main.forms import SearchForm
+from .main.fetch import fetch
+from .main import models
+from flask_sqlalchemy import SQLAlchemy
+from . import create_app
+from . import db
 
 load_dotenv()
+app = create_app(os.getenv("CONFIG_MODE"))
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 bootstrap = Bootstrap5(app)
 moment = Moment(app)
 
@@ -43,6 +44,7 @@ def dictionary(word):
         session['search_status'] = True
     else:
         session['search_status'] = False
+        flash("That word is not defined.")
     return render_template("dictionary.html", result = result,
                    search_word=word,
                    form=form,

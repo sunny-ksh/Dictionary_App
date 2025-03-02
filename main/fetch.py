@@ -1,3 +1,5 @@
+# API target for word meaning fetching:
+# https://api.dictionaryapi.dev/api/v2/entries/en/hello
 import requests, json
 from flask import redirect, render_template, url_for
 from .forms import SearchForm
@@ -15,8 +17,3 @@ def fetch(word: str):
 
     result = json.loads(response.text)[0]
     return result
-
-        # return render_template("dictionary.html",
-        #                        search_word=word,
-        #                        form=form,
-        #                        search_status=False)
